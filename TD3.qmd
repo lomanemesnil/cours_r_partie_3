@@ -238,3 +238,44 @@ plot_distribution_semaine(df_d_0108)
 plot_distribution_semaine(df_d_2106)
 ```
 
+# Q10 : amélioration de la fonction trouver_trajet_max()
+
+```{r}
+trouver_trajet_max <- function(dataframe) {
+  
+  stopifnot(is.data.frame(dataframe))
+  
+  df_propre <- filtre_anomalie(dataframe)
+
+  ligne_max <- df_propre |> 
+    slice_max(Total, n = 1, with_ties = FALSE)
+  
+  boucle_cible <- ligne_max$`Numéro de boucle`
+  date_cible <- ligne_max$Jour
+  
+  moyenne_boucle <- df_propre |>
+    filter(`Numéro de boucle` == boucle_cible) |>
+    summarise(moy_par_jour = mean(Total, na.rm = TRUE)) |>
+    pull(moy_par_jour)
+    
+  moyenne_date <- df_propre |>
+    filter(Jour == date_cible) |>
+    summarise(moy_par_boucle = mean(Total, na.rm = TRUE)) |>
+    pull(moy_par_boucle)
+  
+  resultat <- ligne_max |>
+    select(`Boucle de comptage`, Jour, Total) |>
+    mutate(
+      Moyenne_Journaliere_Boucle = moyenne_boucle,
+      Moyenne_Date_Toutes_Boucles = moyenne_date
+    )
+  
+  return(resultat)
+}
+
+```
+
+```{r}
+trouver_trajet_max(df_velo)
+```
+
