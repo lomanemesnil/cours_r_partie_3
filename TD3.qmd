@@ -103,5 +103,32 @@ compter_nb_trajets(df_d_0108)
 compter_nb_trajets(df_d_2106)
 ```
 
+# Q5 : fonction compter_nb_de_boucles()
 
+```{r}
+# définition de la fonction
+
+compter_nb_de_boucles <- function(dataframe) {
+  
+  stopifnot(is.data.frame(dataframe))
+  
+  nb_de_boucle <- dataframe |>
+    summarise(total = n_distinct(`Numéro de boucle`)) |>
+    pull(total)
+  
+  return(nb_de_boucle)
+}
+
+```
+
+```{r}
+# test sur mes data frames
+
+compter_nb_de_boucles(df_b_683)
+compter_nb_de_boucles(df_b_747)
+compter_nb_de_boucles(df_d_0108)
+compter_nb_de_boucles(df_d_2106)
+```
+
+les résultats sur les data frame avec une seule boucle étaient prévisibles puisqu'il n'y a qu'une seule boucle présente sur ces data frames. 
 
