@@ -132,3 +132,30 @@ compter_nb_de_boucles(df_d_2106)
 
 les résultats sur les data frame avec une seule boucle étaient prévisibles puisqu'il n'y a qu'une seule boucle présente sur ces data frames. 
 
+# Q6 : fonction trouver_trajet_max()
+
+```{r}
+# définition de la fonction
+trouver_trajet_max <- function(dataframe) {
+  
+  stopifnot(is.data.frame(dataframe))
+  
+  trajet_max <- dataframe |>
+    filter(Total == max(Total, na.rm = TRUE)) |>
+    select(`Boucle de comptage`, Jour, Total)
+  
+  return(trajet_max)
+  
+}
+```
+
+```{r}
+# test sur mes dataframes
+
+trouver_trajet_max(df_velo)
+trouver_trajet_max(df_b_747)
+trouver_trajet_max(df_b_683)
+trouver_trajet_max(df_d_0108)
+trouver_trajet_max(df_d_2106)
+```
+
