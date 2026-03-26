@@ -172,3 +172,31 @@ df_velo_filtre <- filtre_anomalie(df_velo)
 trouver_trajet_max(df_velo_filtre)
 ```
 
+# Q8 : fonction calcul_distribution_semaine()
+
+```{r}
+# définition de la fonction
+
+calcul_distribution_semaine <- function(dataframe) {
+  
+  stopifnot(is.data.frame(dataframe))
+  
+  distrib_semaine <- dataframe |>
+    group_by(`Jour de la semaine`) |>
+    summarise(Total_Passages = sum(Total, na.rm = TRUE)) |>
+    arrange(`Jour de la semaine`)
+  
+  return(distrib_semaine)
+  
+}
+```
+
+```{r}
+# test sur mes data frames
+
+calcul_distribution_semaine(df_b_683)
+calcul_distribution_semaine(df_b_747)
+calcul_distribution_semaine(df_d_0108)
+calcul_distribution_semaine(df_d_2106)
+```
+
