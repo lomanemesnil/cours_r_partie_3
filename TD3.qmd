@@ -4,3 +4,30 @@ format: html
 editor: visual
 ---
 
+# Q2 : import de la base
+
+```{r}
+library(readr)
+df_velo <- read_delim("data/comptage_velo.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+Création de deux data frame avec les infos de mes deux boucles favorites :\
+- 747 : Chemin de halage Tortière vers Nord\
+- 683 : pont Anne de Bretagne vers Nord
+
+```{r}
+library(dplyr)
+
+df_b_747 <- df_velo |>
+  filter(`Numéro de boucle` == 747)
+
+df_b_683 <- df_velo |>
+  filter(`Numéro de boucle` == 683)
+```
+
+Création de deux data frame avec les infos sur mes deux jours préférés :\
+- 21 juin 2025\
+- 1er aout 2025
+
+
