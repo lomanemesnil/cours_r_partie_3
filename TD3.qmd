@@ -57,10 +57,10 @@ filtre_anomalie <- function(dataframe) {
 ```{r}
 # Test sur mes data frames
 
-df_b_683 <- filtre_anomalie(df_b_683)
-df_b_747 <- filtre_anomalie(df_b_747)
-df_d_0108 <- filtre_anomalie(df_d_0108)
-df_d_2106 <- filtre_anomalie(df_d_2106)
+filtre_anomalie(df_b_683)
+filtre_anomalie(df_b_747)
+filtre_anomalie(df_d_0108)
+filtre_anomalie(df_d_2106)
 ```
 
 Sur df_b_747 :\
@@ -78,3 +78,30 @@ Sur df_d_0108 :\
 Sur : df_d_2106\
 - avant filtre : 60 obs\
 - après filtre : 48 obs
+
+# Q4 : fonction compter_nombre_trajet()
+
+```{r}
+# définition de la fonction
+
+compter_nb_trajets <- function (dataframe) {
+  
+  stopifnot(is.data.frame(dataframe))
+  
+  nb_trajets <- sum(dataframe$Total)
+  
+  return(nb_trajets)
+}
+```
+
+```{r}
+# test sur mes data frames
+
+compter_nb_trajets(df_b_683)
+compter_nb_trajets(df_b_747)
+compter_nb_trajets(df_d_0108)
+compter_nb_trajets(df_d_2106)
+```
+
+
+
