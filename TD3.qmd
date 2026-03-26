@@ -28,6 +28,53 @@ df_b_683 <- df_velo |>
 
 Création de deux data frame avec les infos sur mes deux jours préférés :\
 - 21 juin 2025\
-- 1er aout 2025
+- 1er août 2025
 
+```{r}
+df_d_2106 <- df_velo |>
+  filter(Jour == "2025-06-21")
 
+df_d_0108 <- df_velo |>
+  filter(Jour == "2025-08-01")
+```
+
+# Q3 : fonction filtre_anomalie()
+
+```{r}
+# Définition de la fonction
+
+filtre_anomalie <- function(dataframe) {
+  
+  stopifnot(is.data.frame(dataframe)) # permet de stopper si ce n'est pas un data frame
+  
+  dataframe <- dataframe |>
+    filter(!(`Probabilité de présence d'anomalies` %in% c("Forte", "Faible"))) # enlève les lignes avec anomalies
+  
+  return(dataframe)
+}
+```
+
+```{r}
+# Test sur mes data frames
+
+df_b_683 <- filtre_anomalie(df_b_683)
+df_b_747 <- filtre_anomalie(df_b_747)
+df_d_0108 <- filtre_anomalie(df_d_0108)
+df_d_2106 <- filtre_anomalie(df_d_2106)
+```
+
+Sur df_b_747 :\
+- avant filtre : 365 obs\
+- après filtre : 344 obs
+
+Sur df_b_683 :\
+- avant filtre : 365 obs\
+- après filtre : 2 obs
+
+Sur df_d_0108 :\
+- avant filtre : 60 obs\
+- après filtre : 53 obs
+
+Sur : df_d_2106\
+- avant filtre : 60 obs\
+- après filtre : 48 obs
