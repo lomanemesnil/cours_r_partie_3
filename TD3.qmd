@@ -168,7 +168,23 @@ trouver_trajet_max(df_velo)
 Le nombre de trajets semble ENORME. On va corriger le data frame avec la fonction filtre_anomalie().
 
 ```{r}
-df_velo_filtre <- filtre_anomalie(df_velo)
+# Amélioration du filtre anomalie
+
+filtre_anomalie_amélioré <- function(dataframe) {
+  
+  stopifnot(is.data.frame(dataframe)) # permet de stopper si ce n'est pas un data frame
+  
+  dataframe <- dataframe |>
+    filter(!(`Probabilité de présence d'anomalies` %in% c("Forte", "Faible"))) |> # enlève les lignes avec anomalies
+    filter(Total > 0, Total < 10000)
+  
+  return(dataframe)
+}
+```
+
+
+```{r}
+df_velo_filtre <- filtre_anomalie_amélioré(df_velo)
 trouver_trajet_max(df_velo_filtre)
 ```
 
@@ -211,7 +227,7 @@ plot_distribution_semaine <- function(dataframe) {
   
   stopifnot(is.data.frame(dataframe))
   
-  df_propre <- filtre_anomalie(dataframe)
+  df_propre <- filtre_anomalie_amélioré(dataframe)
 
   df_stats <- calcul_distribution_semaine(df_propre)
   
@@ -245,7 +261,7 @@ trouver_trajet_max <- function(dataframe) {
   
   stopifnot(is.data.frame(dataframe))
   
-  df_propre <- filtre_anomalie(dataframe)
+  df_propre <- filtre_anomalie_amélioré(dataframe)
 
   ligne_max <- df_propre |> 
     slice_max(Total, n = 1, with_ties = FALSE)
