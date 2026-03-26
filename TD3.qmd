@@ -152,10 +152,23 @@ trouver_trajet_max <- function(dataframe) {
 ```{r}
 # test sur mes dataframes
 
-trouver_trajet_max(df_velo)
 trouver_trajet_max(df_b_747)
 trouver_trajet_max(df_b_683)
 trouver_trajet_max(df_d_0108)
 trouver_trajet_max(df_d_2106)
+```
+
+# Q7 : trouver_trajet_max sur df_velo
+
+```{r}
+# application de trouver_trajet_max() sur df_velo
+trouver_trajet_max(df_velo)
+```
+
+Le nombre de trajets semble ENORME. On va corriger le data frame avec la fonction filtre_anomalie().
+
+```{r}
+df_velo_filtre <- filtre_anomalie(df_velo)
+trouver_trajet_max(df_velo_filtre)
 ```
 
