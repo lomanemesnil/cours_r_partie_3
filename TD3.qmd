@@ -200,3 +200,41 @@ calcul_distribution_semaine(df_d_0108)
 calcul_distribution_semaine(df_d_2106)
 ```
 
+# Q9 : fonction plot_distribution_semaine()
+
+```{r}
+library(ggplot2)
+
+# définition de la fonction
+
+plot_distribution_semaine <- function(dataframe) {
+  
+  stopifnot(is.data.frame(dataframe))
+  
+  df_propre <- filtre_anomalie(dataframe)
+
+  df_stats <- calcul_distribution_semaine(df_propre)
+  
+  graphique <- ggplot(df_stats, aes(x = factor(`Jour de la semaine`), y = Total_Passages)) +
+    geom_col(fill = "slateblue") +
+    labs(
+      title = "Distribution des trajets par jour de la semaine, après filtrage des anomalies",
+      x = "Jour de la semaine (1=Lundi, 7=Dimanche)",
+      y = "Nombre total de trajets"
+    ) +
+    theme_minimal()
+  
+  print(graphique)
+}
+```
+
+```{r}
+# test sur mes data frames
+
+plot_distribution_semaine(df_velo)
+plot_distribution_semaine(df_b_683)
+plot_distribution_semaine(df_b_747)
+plot_distribution_semaine(df_d_0108)
+plot_distribution_semaine(df_d_2106)
+```
+
